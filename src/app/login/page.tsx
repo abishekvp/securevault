@@ -1,12 +1,12 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { TrendingUp, ShieldCheck, Mail, Lock, ArrowRight, Loader2, KeyRound } from 'lucide-react';
 
-export default function LoginPage() {
+function LoginContent() {
     const searchParams = useSearchParams();
     const error = searchParams.get('error');
     const router = useRouter();
@@ -302,5 +302,13 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#050505] text-white">Loading...</div>}>
+            <LoginContent />
+        </Suspense>
     );
 }

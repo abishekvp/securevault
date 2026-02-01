@@ -29,7 +29,9 @@ const AccountSchema: Schema = new Schema(
         owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         folderId: { type: Schema.Types.ObjectId, ref: 'Folder' },
         type: { type: String, required: true, default: 'login' },
-        title: { type: String }, // Can be encrypted string or plain text depending on policy
+        title: { type: String },
+        username: { type: String }, // Metadata for list view
+        url: { type: String },      // Metadata for list view
 
         encryptedData: { type: String, required: true },
         encryptedItemKey: { type: String, required: true },

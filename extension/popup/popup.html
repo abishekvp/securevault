@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Vault</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body class="dark">
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen hidden">
+            <div class="header">
+                <div class="logo-fallback">SV</div>
+                <h1>Secure Vault</h1>
+            </div>
+            <div class="content">
+                <p>Please log in to your account to access your vault.</p>
+                <button id="btn-open-login" class="btn-primary">Open Web Login</button>
+                <div class="divider">OR</div>
+                <div class="config-section">
+                    <label for="product-url">Product URL</label>
+                    <input type="text" id="product-url" placeholder="http://localhost:3000">
+                    <div id="config-error" class="error-text hidden"></div>
+                    <button id="btn-save-config" class="btn-secondary">Save Config</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vault Screen -->
+        <div id="vault-screen" class="screen">
+            <div class="header">
+                <div class="user-info">
+                    <div class="logo-fallback-small">SV</div>
+                    <span id="user-email">user@example.com</span>
+                </div>
+                <button id="btn-add" title="Add Account">+</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="vault-search" placeholder="Search vault...">
+            </div>
+            <div id="vault-list" class="scroll-area">
+                <!-- Items will be injected here -->
+                <div class="loading">Loading items...</div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Screen -->
+        <div id="edit-screen" class="screen hidden">
+            <div class="header">
+                <button id="btn-back-to-vault">&larr;</button>
+                <h2 id="edit-title">Add Account</h2>
+            </div>
+            <div class="content">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="field-title" placeholder="Google, Github, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="field-username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input">
+                        <input type="password" id="field-password">
+                        <button id="btn-gen-pass" title="Generate Password">G</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="text" id="field-url" placeholder="https://example.com">
+                </div>
+                <button id="btn-save-account" class="btn-primary">Save Account</button>
+                <button id="btn-delete-account" class="btn-danger hidden">Delete Account</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="popup.js"></script>
+</body>
+
+</html>

@@ -23,21 +23,23 @@ export async function POST(req: Request) {
     await user.save();
 
     // Send Email
-    const settings = await SystemSettings.findOne();
-    if (settings?.smtp?.host) {
+    const configSetting = await SystemSettings.findOne({ key: 'email_config' });
+    const config = configSetting?.value || {};
+
+    if (config.smtpHost) {
         try {
             const transporter = nodemailer.createTransport({
-                host: settings.smtp.host,
-                port: settings.smtp.port,
-                secure: settings.smtp.secure,
+                host: config.smtpHost,
+                port: Number(config.smtpPort) || 587,
+                secure: Number(config.smtpPort) === 465, // true for 465, false for other ports
                 auth: {
-                    user: settings.smtp.user,
-                    pass: settings.smtp.pass,
+                    user: config.smtpUser,
+                    pass: config.smtpPass,
                 },
             });
 
             await transporter.sendMail({
-                from: settings.smtp.from || 'noreply@securevault.com',
+                from: config.smtpFrom || 'noreply@securevault.com',
                 to: user.email,
                 subject: 'Secure Vault - Verification Code',
                 text: `Your verification code is: ${otp}`,

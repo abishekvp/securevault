@@ -4,7 +4,8 @@ import connectDB from '@/lib/db';
 import Group from '@/models/Group';
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.email) return new NextResponse('Unauthorized', { status: 401 });
 
@@ -34,12 +35,12 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
 
     // Auto-Join Logic
-    let status = 'invited';
+    let status: 'invited' | 'active' = 'invited';
     const privacy = targetUser.privacySettings;
 
     if (privacy) {
         if (privacy.autoJoinGroups === 'connections') {
-            const isConnected = targetUser.connections.some((c: any) =>
+            const isConnected = targetUser.connections?.some((c: any) =>
                 c.userId.toString() === currentUser._id.toString() && c.status === 'accepted'
             );
             if (isConnected) status = 'active';
@@ -63,7 +64,8 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     return NextResponse.json({ success: true });
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     // Remove member logic... (skip for brevity unless needed)
     return new NextResponse('Not implemented', { status: 501 });
 }

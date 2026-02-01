@@ -1,0 +1,61 @@
+/* extension/content/content.css */
+
+.sv-autofill-icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.2s;
+    background: #00ffff;
+    color: #030712;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: sans-serif;
+    border: 1px solid #1e293b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sv-autofill-icon:hover {
+    transform: scale(1.2);
+    border-color: #00ffff;
+}
+
+.sv-autofill-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.sv-account-picker {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #030712;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 8px;
+    min-width: 200px;
+    z-index: 10001;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    color: #f8fafc;
+}
+
+.sv-picker-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.sv-picker-item:hover {
+    background: #1e293b;
+    color: #00ffff;
+}

@@ -4,7 +4,8 @@ import connectDB from '@/lib/db';
 import Group from '@/models/Group';
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.email) return new NextResponse('Unauthorized', { status: 401 });
 

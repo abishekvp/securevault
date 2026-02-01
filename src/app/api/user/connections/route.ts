@@ -36,12 +36,14 @@ export async function POST(req: Request) {
         await connectDB();
 
         const sender = await User.findOne({ email: session.user.email });
+        if (!sender) return NextResponse.json({ error: 'User not found' }, { status: 404 });
+
         const recipient = await User.findOne({ email: targetEmail });
 
         if (!recipient) return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
         // Check availability
-        const existing = sender.connections.find((c: any) => c.userId?.toString() === recipient._id.toString());
+        const existing = (sender.connections || []).find((c: any) => c.userId?.toString() === recipient._id.toString());
         if (existing) return NextResponse.json({ error: `Connection already ${existing.status}` }, { status: 409 });
 
         // Update Sender: status 'sent'
@@ -75,6 +77,7 @@ export async function PUT(req: Request) {
 
         await connectDB();
         const currentUser = await User.findOne({ email: session.user.email });
+        if (!currentUser) return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
         if (action === 'accept') {
             // 1. Update Current User: pending -> accepted

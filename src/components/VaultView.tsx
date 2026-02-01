@@ -289,7 +289,14 @@ export default function VaultView({ userData, userEmail }: VaultViewProps) {
 
             const { encryptedData, encryptedItemKey } = await encryptVaultItem(newItemData, masterKey);
             const savedItem = await VaultService.createItem({
-                type: 'login', encryptedData, encryptedItemKey, favorite: false, folderId: data.folderId
+                type: 'login',
+                encryptedData,
+                encryptedItemKey,
+                favorite: false,
+                folderId: data.folderId,
+                title: data.name,
+                username: data.username,
+                url: data.url
             });
             const decryptedSaved = { ...newItemData, id: savedItem._id };
             setAccounts(prev => [decryptedSaved, ...prev]);
@@ -303,7 +310,12 @@ export default function VaultView({ userData, userEmail }: VaultViewProps) {
         try {
             const { encryptedData, encryptedItemKey } = await encryptVaultItem(updatedUI, masterKey);
             await VaultService.updateItem(updatedUI.id, {
-                encryptedData, encryptedItemKey, favorite: updatedUI.favorite
+                encryptedData,
+                encryptedItemKey,
+                favorite: updatedUI.favorite,
+                title: updatedUI.name,
+                username: updatedUI.username,
+                url: updatedUI.url
             });
             setAccounts(prev => prev.map(a => a.id === updatedUI.id ? updatedUI : a));
 

@@ -13,6 +13,7 @@ interface Account {
     password?: string;
     notes?: string;
     fields: any[];
+    createdAt: string;
 }
 
 interface VaultDetailModalProps {

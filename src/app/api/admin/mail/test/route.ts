@@ -1,7 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import connectDB from '@/lib/db';
-import SystemSettings from '@/models/SystemSettings';
 import User from '@/models/User';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
